@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>人人都是架构师</title>
   
-  <link href="/atom.xml" rel="self"/>
+  <link href="/shuimin.github.io/atom.xml" rel="self"/>
   
   <link href="https://powerwang.github.io/shuimin.github.io/"/>
   <updated>2017-08-28T17:28:37.000Z</updated>
