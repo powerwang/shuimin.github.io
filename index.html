@@ -237,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://powerwang.github.io/shuimin.github.io/shuimin.github.io/2017/08/16/jdk线程池原理/">
+    <link itemprop="mainEntityOfPage" href="https://powerwang.github.io/shuimin.github.io/shuimin.github.io/2017/08/16/JDK线程池原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王水民">
@@ -256,7 +256,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/shuimin.github.io/2017/08/16/jdk线程池原理/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/shuimin.github.io/2017/08/16/JDK线程池原理/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -307,7 +307,7 @@
 
       
         
-          <h1 id="jdk线程池原理"><a href="#jdk线程池原理" class="headerlink" title="jdk线程池原理"></a>jdk线程池原理</h1><p> 参考：<a href="https://www.atatech.org/articles/88083" target="_blank" rel="external">ThreadPoolExecutor源码解读</a></p>
+          <h1 id="JDK线程池原理"><a href="#JDK线程池原理" class="headerlink" title="JDK线程池原理"></a>JDK线程池原理</h1><p> 参考：<a href="https://www.atatech.org/articles/88083" target="_blank" rel="external">ThreadPoolExecutor源码解读</a></p>
 <h2 id="一、线程池概要"><a href="#一、线程池概要" class="headerlink" title="一、线程池概要"></a>一、线程池概要</h2><p>线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。</p>
 <ol>
 <li>初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 </li>
@@ -315,7 +315,7 @@
 <li>其中任务队列是通过BlockingQueue 的take(没有设置超时时间，worker一直阻塞，直到有任务为止)，poll 可以设置等待超时时间，如果时间范围内没有任务就返回null，worker  如果收到null,就直接释放结束。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/shuimin.github.io/2017/08/16/jdk线程池原理/#more" rel="contents">
+            <a class="btn" href="/shuimin.github.io/2017/08/16/JDK线程池原理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

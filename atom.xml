@@ -5,7 +5,7 @@
   <link href="/shuimin.github.io/atom.xml" rel="self"/>
   
   <link href="https://powerwang.github.io/shuimin.github.io/"/>
-  <updated>2017-08-28T18:29:52.000Z</updated>
+  <updated>2017-08-28T19:02:33.000Z</updated>
   <id>https://powerwang.github.io/shuimin.github.io/</id>
   
   <author>
@@ -17,12 +17,12 @@
   
   <entry>
     <title></title>
-    <link href="https://powerwang.github.io/shuimin.github.io/2017/08/16/jdk%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86/"/>
-    <id>https://powerwang.github.io/shuimin.github.io/2017/08/16/jdk线程池原理/</id>
+    <link href="https://powerwang.github.io/shuimin.github.io/2017/08/16/JDK%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86/"/>
+    <id>https://powerwang.github.io/shuimin.github.io/2017/08/16/JDK线程池原理/</id>
     <published>2017-08-16T11:59:06.000Z</published>
-    <updated>2017-08-28T18:29:52.000Z</updated>
+    <updated>2017-08-28T19:02:33.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="jdk线程池原理"><a href="#jdk线程池原理" class="headerlink" title="jdk线程池原理"></a>jdk线程池原理</h1><p> 参考：<a href="https://www.atatech.org/articles/88083" target="_blank" rel="external">ThreadPoolExecutor源码解读</a></p>
+    <content type="html"><![CDATA[<h1 id="JDK线程池原理"><a href="#JDK线程池原理" class="headerlink" title="JDK线程池原理"></a>JDK线程池原理</h1><p> 参考：<a href="https://www.atatech.org/articles/88083" target="_blank" rel="external">ThreadPoolExecutor源码解读</a></p>
 <h2 id="一、线程池概要"><a href="#一、线程池概要" class="headerlink" title="一、线程池概要"></a>一、线程池概要</h2><p>线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。</p>
 <ol>
 <li>初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 </li>
@@ -49,7 +49,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;jdk线程池原理&quot;&gt;&lt;a href=&quot;#jdk线程池原理&quot; class=&quot;headerlink&quot; title=&quot;jdk线程池原理&quot;&gt;&lt;/a&gt;jdk线程池原理&lt;/h1&gt;&lt;p&gt; 参考：&lt;a href=&quot;https://www.atatech.org/articles/88083&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThreadPoolExecutor源码解读&lt;/a&gt;&lt;/p&gt;
+      &lt;h1 id=&quot;JDK线程池原理&quot;&gt;&lt;a href=&quot;#JDK线程池原理&quot; class=&quot;headerlink&quot; title=&quot;JDK线程池原理&quot;&gt;&lt;/a&gt;JDK线程池原理&lt;/h1&gt;&lt;p&gt; 参考：&lt;a href=&quot;https://www.atatech.org/articles/88083&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ThreadPoolExecutor源码解读&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;一、线程池概要&quot;&gt;&lt;a href=&quot;#一、线程池概要&quot; class=&quot;headerlink&quot; title=&quot;一、线程池概要&quot;&gt;&lt;/a&gt;一、线程池概要&lt;/h2&gt;&lt;p&gt;线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 &lt;/li&gt;
