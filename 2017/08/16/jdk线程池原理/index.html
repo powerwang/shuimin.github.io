@@ -5,12 +5,18 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="#jdk线程池原理 参考：ThreadPoolExecutor源码解读 ##一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 2. 任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/08/16/jdk线程池原理/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#jdk线程池原理 参考：ThreadPoolExecutor源码解读 ##一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 2. 任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再">
+<meta property="og:image" content="http://yoursite.com/2017/08/16/jdk线程池原理/media/15028847463264/15028854510252.jpg">
+<meta property="og:updated_time" content="2017-08-25T09:50:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#jdk线程池原理 参考：ThreadPoolExecutor源码解读 ##一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 2. 任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/16/jdk线程池原理/media/15028847463264/15028854510252.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -59,163 +65,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-LinkedBlockingQueue 原理分析" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/25/LinkedBlockingQueue 原理分析/" class="article-date">
-  <time datetime="2017-08-25T09:48:02.000Z" itemprop="datePublished">2017-08-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="LinkedBlockingQueue-原理分析"><a href="#LinkedBlockingQueue-原理分析" class="headerlink" title="LinkedBlockingQueue 原理分析"></a>LinkedBlockingQueue 原理分析</h1><p>LinkedBlockingQueue是链表queue</p>
-<h2 id="poll源码"><a href="#poll源码" class="headerlink" title="poll源码"></a>poll源码</h2><p>主要通过condition提供awaitNanos，建立阻塞等待时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//如果</div><div class="line">public E poll(long timeout, TimeUnit unit) throws InterruptedException &#123;</div><div class="line">        E x = null;</div><div class="line">        int c = -1;</div><div class="line">        long nanos = unit.toNanos(timeout);</div><div class="line">        final AtomicInteger count = this.count;</div><div class="line">        final ReentrantLock takeLock = this.takeLock;</div><div class="line">        takeLock.lockInterruptibly();</div><div class="line">        try &#123;</div><div class="line">            while (count.get() == 0) &#123;</div><div class="line">                if (nanos &lt;= 0)</div><div class="line">                    return null;</div><div class="line">                nanos = notEmpty.awaitNanos(nanos);</div><div class="line">            &#125;</div><div class="line">            x = dequeue();</div><div class="line">            c = count.getAndDecrement();</div><div class="line">            if (c &gt; 1)</div><div class="line">                notEmpty.signal();</div><div class="line">        &#125; finally &#123;</div><div class="line">            takeLock.unlock();</div><div class="line">        &#125;</div><div class="line">        if (c == capacity)</div><div class="line">            signalNotFull();</div><div class="line">        return x;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/25/LinkedBlockingQueue 原理分析/" data-id="cj6wdfs1z00009lcor8ttjgee" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-集群流量系统思考" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/23/集群流量系统思考/" class="article-date">
-  <time datetime="2017-08-23T15:20:15.000Z" itemprop="datePublished">2017-08-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#集群流量系统思考</p>
-<p>###一、业务诉求<br> 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景</p>
-<h3 id="二、架构"><a href="#二、架构" class="headerlink" title="二、架构"></a>二、架构</h3><p><strong>粗暴架构：</strong><br>将url+时间点为key,放到缓存中，每次请求过来，去check一下有没有达到阀值点。<br>风险：</p>
-<ul>
-<li>缓存qps会非常大，缓存可能会被击穿。</li>
-<li>具有读又有写，业务请求强耦合流控系统缓存，将会形成单点问题。</li>
-</ul>
-<p><strong>大并发架构：</strong><br>将系统拆分为：流量计数、流控策略、策略同步<br><img src="media/15035016156453/15035953305189.jpg" alt="-w610"></p>
-<ul>
-<li><p>流程计数：<br>流量进来，先通过消息异步化，到流量计数模块，流量计数模块按url+分钟+业务为key,缓存到本地，然后定时刷新到redis。<br>好处：通过消息缓冲避免出现redis请求毛刺，再通过本地缓存避免每次消息消费对redis资源依赖，减少消息堆积风险和redis数据更新压力。</p>
-<blockquote>
-<p>基本链路：<br>流量-&gt;消息-&gt;本地缓存计数-&gt;分布式缓存</p>
-</blockquote>
-</li>
-<li><p>流控策略：<br>当流程计数触发到阀值，server将其广播到client,client根据自己配置策略，进行拦截、报错等自定义自我处理策略</p>
-<blockquote>
-<p>server只是负责阀值识别，不做策略处理，将策略处理是否到client,好处：可以解耦防止业务系统对中间件强依赖；还可以实现不同client差异化处理策略</p>
-</blockquote>
-</li>
-<li><p>流程同步:<br>可以通过消息广播或者ZK等等方式</p>
-</li>
-</ul>
-<h2 id="单机限流框架设计思考"><a href="#单机限流框架设计思考" class="headerlink" title="单机限流框架设计思考"></a>单机限流框架设计思考</h2><p>###一、业务诉求<br> 解决单机流量毛刺问题</p>
-<p> <a href="http://gitlab.alibaba-inc.com/middleware-asp/sentinel/wikis/brief-introduction" target="_blank" rel="external">http://gitlab.alibaba-inc.com/middleware-asp/sentinel/wikis/brief-introduction</a></p>
-<p> <a href="https://www.atatech.org/articles/26546?rnd=1300980043" target="_blank" rel="external">https://www.atatech.org/articles/26546?rnd=1300980043</a></p>
-<p> 滑动窗口的算法<br> <a href="https://www.atatech.org/articles/26746" target="_blank" rel="external">https://www.atatech.org/articles/26746</a><br> BBR的算法  根据系统最大能处理能力，动态进行限流和恢复<br> qps*Avg(rt) </p>
-<p> 最大线程数</p>
-<p> sentinel是用 <strong><em>无锁环形数组</em></strong>来进行qps统计的。 使用这个结构是基于下面的假设: 牺牲一定的准确性，来换取速度(请求数量的精确度 &lt; 加锁所带来的效率损失)</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/23/集群流量系统思考/" data-id="cj6wdfs2700019lco4cvnff03" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/17/hello-world/" class="article-date">
-  <time datetime="2017-08-16T16:38:41.000Z" itemprop="datePublished">2017-08-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/17/hello-world/" data-id="cj6wbvk0u00000jcoubtl6vbu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-jdk 线程工厂DefaultThreadFactory原理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/16/jdk 线程工厂DefaultThreadFactory原理/" class="article-date">
-  <time datetime="2017-08-16T13:05:28.000Z" itemprop="datePublished">2017-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#jdk 线程工厂DefaultThreadFactory原理</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/jdk 线程工厂DefaultThreadFactory原理/" data-id="cj6wdfs2900029lcoukf9g9kh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-jdk线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-jdk线程池原理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/08/16/jdk线程池原理/" class="article-date">
   <time datetime="2017-08-16T11:59:06.000Z" itemprop="datePublished">2017-08-16</time>
@@ -260,10 +110,23 @@
     </footer>
   </div>
   
-</article>
-
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/16/jdk 线程工厂DefaultThreadFactory原理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
 
   
+</article>
 
 </section>
         
