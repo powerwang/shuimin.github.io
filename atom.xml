@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>人人都是架构师</title>
+  <title>架构师</title>
   
   <link href="/shuimin.github.io/atom.xml" rel="self"/>
   
@@ -68,7 +68,7 @@
     <link href="https://powerwang.github.io/shuimin.github.io/2014/12/22/tags/"/>
     <id>https://powerwang.github.io/shuimin.github.io/2014/12/22/tags/</id>
     <published>2014-12-22T04:39:04.000Z</published>
-    <updated>2017-08-29T15:22:32.000Z</updated>
+    <updated>2017-08-29T16:20:20.000Z</updated>
     
     <summary type="html">
     
