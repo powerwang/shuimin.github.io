@@ -5,11 +5,11 @@
   <link href="/shuimin.github.io/atom.xml" rel="self"/>
   
   <link href="https://powerwang.github.io/shuimin.github.io/"/>
-  <updated>2017-08-29T13:59:27.000Z</updated>
+  <updated>2017-08-29T15:03:16.000Z</updated>
   <id>https://powerwang.github.io/shuimin.github.io/</id>
   
   <author>
-    <name>王水民</name>
+    <name>王水民(Burton)</name>
     
   </author>
   
@@ -20,7 +20,7 @@
     <link href="https://powerwang.github.io/shuimin.github.io/2017/08/29/JDK%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86/"/>
     <id>https://powerwang.github.io/shuimin.github.io/2017/08/29/JDK线程池原理/</id>
     <published>2017-08-29T13:52:12.000Z</published>
-    <updated>2017-08-29T13:59:27.000Z</updated>
+    <updated>2017-08-29T15:03:16.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一、线程池概要"><a href="#一、线程池概要" class="headerlink" title="一、线程池概要"></a>一、线程池概要</h2><p>线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。</p>
 <ol>
@@ -53,6 +53,24 @@
 &lt;li&gt;初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 &lt;/li&gt;
 &lt;li&gt;任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。&lt;/li&gt;
 &lt;li&gt;其中任务队列是通过BlockingQueue 的take(没有设置超时时间，worker一直阻塞，直到有任务为止)，poll 可以设置等待超时时间，如果时间范围内没有任务就返回null，worker  如果收到null,就直接释放结束。
+    
+    </summary>
+    
+      <category term="线程池" scheme="https://powerwang.github.io/shuimin.github.io/categories/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+    
+      <category term="线程池" scheme="https://powerwang.github.io/shuimin.github.io/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>标签</title>
+    <link href="https://powerwang.github.io/shuimin.github.io/2014/12/22/tags/"/>
+    <id>https://powerwang.github.io/shuimin.github.io/2014/12/22/tags/</id>
+    <published>2014-12-22T04:39:04.000Z</published>
+    <updated>2017-08-29T15:22:32.000Z</updated>
+    
+    <summary type="html">
     
     </summary>
     
