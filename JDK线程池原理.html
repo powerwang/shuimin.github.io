@@ -79,7 +79,7 @@
 <link href="/shuimin.github.io/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="流控," />
+  <meta name="keywords" content="线程池," />
 
 
 
@@ -97,20 +97,20 @@
 
 
 
-<meta name="description" content="一、业务诉求 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景">
-<meta name="keywords" content="流控">
+<meta name="description" content="一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池  任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。 其中任务队">
+<meta name="keywords" content="线程池">
 <meta property="og:type" content="article">
-<meta property="og:title" content="集群流控系统思考">
-<meta property="og:url" content="https://powerwang.github.io/shuimin.github.io/2017/08/29/集群流量系统思考/index.html">
+<meta property="og:title" content="JDK线程池原理">
+<meta property="og:url" content="https://powerwang.github.io/shuimin.github.io/JDK线程池原理.html">
 <meta property="og:site_name" content="架构师">
-<meta property="og:description" content="一、业务诉求 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景">
+<meta property="og:description" content="一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池  任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。 其中任务队">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg">
-<meta property="og:updated_time" content="2017-08-30T14:45:34.000Z">
+<meta property="og:image" content="https://powerwang.github.io/shuimin.github.io/images/threadPoll.jpg">
+<meta property="og:updated_time" content="2017-08-29T18:06:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="集群流控系统思考">
-<meta name="twitter:description" content="一、业务诉求 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景">
-<meta name="twitter:image" content="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg">
+<meta name="twitter:title" content="JDK线程池原理">
+<meta name="twitter:description" content="一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池  任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。 其中任务队">
+<meta name="twitter:image" content="https://powerwang.github.io/shuimin.github.io/images/threadPoll.jpg">
 
 
 
@@ -140,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="https://powerwang.github.io/shuimin.github.io/2017/08/29/集群流量系统思考/"/>
+  <link rel="canonical" href="https://powerwang.github.io/shuimin.github.io/JDK线程池原理.html"/>
 
 
 
 
 
-  <title>集群流控系统思考 | 架构师</title>
+  <title>JDK线程池原理 | 架构师</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://powerwang.github.io/shuimin.github.io/shuimin.github.io/2017/08/29/集群流量系统思考/">
+    <link itemprop="mainEntityOfPage" href="https://powerwang.github.io/shuimin.github.io/shuimin.github.io/JDK线程池原理.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王水民(Burton)">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">集群流控系统思考</h1>
+          <h1 class="post-title" itemprop="name headline">JDK线程池原理</h1>
         
 
         <div class="post-meta">
@@ -336,7 +336,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-29T21:33:37+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-29T21:52:12+08:00">
                 2017-08-29
               </time>
             
@@ -359,8 +359,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/shuimin.github.io/categories/架构/" itemprop="url" rel="index">
-                    <span itemprop="name">架构</span>
+                  <a href="/shuimin.github.io/categories/JDK/" itemprop="url" rel="index">
+                    <span itemprop="name">JDK</span>
                   </a>
                 </span>
 
@@ -370,8 +370,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/shuimin.github.io/categories/架构/流控/" itemprop="url" rel="index">
-                    <span itemprop="name">流控</span>
+                  <a href="/shuimin.github.io/categories/JDK/线程池/" itemprop="url" rel="index">
+                    <span itemprop="name">线程池</span>
                   </a>
                 </span>
 
@@ -407,27 +407,28 @@
       
 
       
-        <h3 id="一、业务诉求"><a href="#一、业务诉求" class="headerlink" title="一、业务诉求"></a>一、业务诉求</h3><p> 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景<br> <a id="more"></a></p>
-<h3 id="二、架构"><a href="#二、架构" class="headerlink" title="二、架构"></a>二、架构</h3><p><strong>粗暴架构：</strong><br>将url+时间点为key,放到缓存中，每次请求过来，去check一下有没有达到阀值点。<br>风险：</p>
-<ul>
-<li>缓存qps会非常大，缓存可能会被击穿。</li>
-<li>具有读又有写，业务请求强耦合流控系统缓存，将会形成单点问题。</li>
-</ul>
-<p><strong>大并发架构：</strong><br>将系统拆分为：流量计数、流控策略、策略同步<br><img src="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg" alt=""></p>
-<ul>
-<li><p>流程计数：<br>流量进来，先通过消息异步化，到流量   计数模块，流量计数模块按url+分钟+业务为key,缓存到本地，然后定时刷新到redis。<br>好处：通过消息缓冲避免出现redis请求毛刺，再通过本地缓存避免每次消息消费对redis资源依赖，减少消息堆积风险和redis数据更新压力。</p>
+        <h2 id="一、线程池概要"><a href="#一、线程池概要" class="headerlink" title="一、线程池概要"></a>一、线程池概要</h2><p>线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。</p>
+<ol>
+<li>初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池 </li>
+<li>任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。</li>
+<li>其中任务队列是通过BlockingQueue 的take(没有设置超时时间，worker一直阻塞，直到有任务为止)，poll 可以设置等待超时时间，如果时间范围内没有任务就返回null，worker  如果收到null,就直接释放结束。<a id="more"></a>  
+</li>
+</ol>
+<h2 id="二、设计思路"><a href="#二、设计思路" class="headerlink" title="二、设计思路"></a>二、设计思路</h2><p>1、线程池设计初衷是为了解决线程统一管理，将任务和执行体分离，实现可以对执行体的容量规划和生命周期进行统一管理，实现不用泛滥新建线程。<br>2、容量管理：分为执行体（worker）容量和任务队列容量，策略分别是优先满足核心执行体容量&gt;任务队列容量&gt;最大执行体容器&gt;自我保护pocily。<br>3、生产模式：所有执行体(worker)共享任务列表。<br>4、超时协议（timeout）：执行体在某些策略场景下执行超时释放。<br><img src="https://powerwang.github.io/shuimin.github.io/images/threadPoll.jpg" alt="线程池"></p>
+<h2 id="三、源码分析"><a href="#三、源码分析" class="headerlink" title="三、源码分析"></a>三、源码分析</h2><h3 id="1、新建线程池"><a href="#1、新建线程池" class="headerlink" title="1、新建线程池"></a>1、新建线程池</h3><p>新建一个线程池，初始化容量、超时机制、异常自我保护策略做最后兜底</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">                              int maximumPoolSize,</div><div class="line">                              long keepAliveTime,</div><div class="line">                              TimeUnit unit,</div><div class="line">                              BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                              ThreadFactory threadFactory,</div><div class="line">                              RejectedExecutionHandler handler) &#123;</div><div class="line">                              </div><div class="line">        if (corePoolSize &lt; 0 ||</div><div class="line">            maximumPoolSize &lt;= 0 ||</div><div class="line">            maximumPoolSize &lt; corePoolSize ||</div><div class="line">            keepAliveTime &lt; 0)</div><div class="line">            throw new IllegalArgumentException();</div><div class="line">        if (workQueue == null || threadFactory == null || handler == null)</div><div class="line">            throw new NullPointerException();</div><div class="line">        this.corePoolSize = corePoolSize; // 核心执行体数量</div><div class="line">        this.maximumPoolSize = maximumPoolSize; // 最大执行体数量，只有当任务容量满足不了，才进行扩容</div><div class="line">        this.workQueue = workQueue; // 任务队列</div><div class="line">        this.keepAliveTime = unit.toNanos(keepAliveTime); // 超时时间</div><div class="line">        this.threadFactory = threadFactory; //线程工厂</div><div class="line">        this.handler = handler; // 自我保护策略</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>关于 ThreadFactory 工作原理，可以参考：todo</p>
+<h3 id="1、新建任务"><a href="#1、新建任务" class="headerlink" title="1、新建任务"></a>1、新建任务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public void execute(Runnable command) &#123;</div><div class="line">        if (command == null)</div><div class="line">            throw new NullPointerException();</div><div class="line"></div><div class="line">         // 获取当前running 线程数</div><div class="line">        int c = ctl.get();</div><div class="line">        // 1、当执行体数量小于核心线程数，新建执行体</div><div class="line">        if (workerCountOf(c) &lt; corePoolSize) &#123;</div><div class="line">            if (addWorker(command, true))</div><div class="line">                return;</div><div class="line">            c = ctl.get();</div><div class="line">        &#125;</div><div class="line">        //2、线程池running,如果任务队列未满，则将任务插入到队列，如果队列已经满了,则new worker,如果worker 数量大于最大数量时，执行保护策略。               </div><div class="line">        if (isRunning(c) &amp;&amp; workQueue.offer(command)) &#123;</div><div class="line">            int recheck = ctl.get();</div><div class="line">             //todo 如果线程池不在执行状态，而且移除任务，则执行拒绝策略 </div><div class="line">            if (! isRunning(recheck) &amp;&amp; remove(command))</div><div class="line">                reject(command);</div><div class="line">            // 如果worker数量=0，则新建一个空执行体  </div><div class="line">            else if (workerCountOf(recheck) == 0)</div><div class="line">                addWorker(null, false);</div><div class="line">        &#125;</div><div class="line">        //如果队列满，而且没有超过最大执行体数，新建执行体，超过执行体数，则执行拒绝策略</div><div class="line">        else if (!addWorker(command, false))</div><div class="line">            reject(command);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="2、新建worker"><a href="#2、新建worker" class="headerlink" title="2、新建worker"></a>2、新建worker</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line">private boolean addWorker(Runnable firstTask, boolean core) &#123;</div><div class="line">        retry:</div><div class="line">        for (;;) &#123;</div><div class="line">            int c = ctl.get();</div><div class="line">            int rs = runStateOf(c);</div><div class="line"></div><div class="line">            // 线程池状态为下线、停止、清理、终止 直接返回，但是线程池状态为下线、执行体为空、队列有任务可以跳过</div><div class="line">            if (rs &gt;= SHUTDOWN &amp;&amp;</div><div class="line">                ! (rs == SHUTDOWN &amp;&amp;</div><div class="line">                   firstTask == null &amp;&amp;</div><div class="line">                   ! workQueue.isEmpty()))</div><div class="line">                return false;</div><div class="line">            // 如果超过执行体数，直接返回false,其他更新执行体数量，成功提出循环，失败则判断线程池状态有没有变，变了，从头执行，没有变，则一直执行更新执行体数量</div><div class="line">            for (;;) &#123;</div><div class="line">                int wc = workerCountOf(c);</div><div class="line">                if (wc &gt;= CAPACITY ||</div><div class="line">                    wc &gt;= (core ? corePoolSize : maximumPoolSize))</div><div class="line">                    return false;</div><div class="line">                // cas 更新</div><div class="line">                if (compareAndIncrementWorkerCount(c))</div><div class="line">                    break retry;</div><div class="line">                c = ctl.get();  // Re-read ctl</div><div class="line">                // 线程池状态变，则从头执行，否则内部遍历</div><div class="line">                if (runStateOf(c) != rs)</div><div class="line">                    continue retry;</div><div class="line">                // else CAS failed due to workerCount change; retry inner loop</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        boolean workerStarted = false;</div><div class="line">        boolean workerAdded = false;</div><div class="line">        Worker w = null;</div><div class="line">        try &#123;</div><div class="line">            w = new Worker(firstTask);</div><div class="line">            final Thread t = w.thread;</div><div class="line">            if (t != null) &#123;</div><div class="line">                final ReentrantLock mainLock = this.mainLock;</div><div class="line">                mainLock.lock();</div><div class="line">                try &#123;</div><div class="line">                    // Recheck while holding lock.</div><div class="line">                    // Back out on ThreadFactory failure or if</div><div class="line">                    // shut down before lock acquired.</div><div class="line">                    int rs = runStateOf(ctl.get());</div><div class="line"></div><div class="line">                    if (rs &lt; SHUTDOWN ||</div><div class="line">                        (rs == SHUTDOWN &amp;&amp; firstTask == null)) &#123;</div><div class="line">                        if (t.isAlive()) // precheck that t is startable</div><div class="line">                            throw new IllegalThreadStateException();</div><div class="line">                        workers.add(w);</div><div class="line">                        int s = workers.size();</div><div class="line">                        if (s &gt; largestPoolSize)</div><div class="line">                            largestPoolSize = s;</div><div class="line">                        workerAdded = true;</div><div class="line">                    &#125;</div><div class="line">                &#125; finally &#123;</div><div class="line">                    mainLock.unlock();</div><div class="line">                &#125;</div><div class="line">                if (workerAdded) &#123;</div><div class="line">                    t.start();</div><div class="line">                    workerStarted = true;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; finally &#123;</div><div class="line">            if (! workerStarted)</div><div class="line">                addWorkerFailed(w);</div><div class="line">        &#125;</div><div class="line">        return workerStarted;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>关于AtomicInteger原理，可以参考：todo<br>关于ReentrantLock原理，可以参考：todo</p>
 <blockquote>
-<p>基本链路：<br>流量-&gt;消息-&gt;本地缓存计数-&gt;分布式缓存</p>
+<p>break、return、contine的区别备注：for 循环中break 退出for循环，return 直接方法体返回，contine 跳过当前执行流程进入下一次执行。</p>
 </blockquote>
-</li>
-<li><p>流控策略：<br>当流程计数触发到阀值，server将其广播到client,client根据自己配置策略，进行拦截、报错等自定义自我处理策略</p>
-<blockquote>
-<p>server只是负责阀值识别，不做策略处理，将策略处理是否到client,好处：可以解耦防止业务系统对中间件强依赖；还可以实现不同client差异化处理策略</p>
-</blockquote>
-</li>
-<li><p>流程同步:<br>可以通过消息广播或者ZK等等方式</p>
-</li>
-</ul>
+<h3 id="3、worker消费任务队列"><a href="#3、worker消费任务队列" class="headerlink" title="3、worker消费任务队列"></a>3、worker消费任务队列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">final void runWorker(Worker w) &#123;</div><div class="line">        Thread wt = Thread.currentThread();</div><div class="line">        Runnable task = w.firstTask;</div><div class="line">        w.firstTask = null;</div><div class="line">        w.unlock(); // allow interrupts</div><div class="line">        boolean completedAbruptly = true;</div><div class="line">        try &#123;</div><div class="line">            //task 阻塞在gettask，如果获取task=null,worker释放，不为null,执行任务</div><div class="line">            while (task != null || (task = getTask()) != null) &#123;</div><div class="line">                w.lock();</div><div class="line">                // If pool is stopping, ensure thread is interrupted;</div><div class="line">                // if not, ensure thread is not interrupted.  This</div><div class="line">                // requires a recheck in second case to deal with</div><div class="line">                // shutdownNow race while clearing interrupt</div><div class="line">                if ((runStateAtLeast(ctl.get(), STOP) ||</div><div class="line">                     (Thread.interrupted() &amp;&amp;</div><div class="line">                      runStateAtLeast(ctl.get(), STOP))) &amp;&amp;</div><div class="line">                    !wt.isInterrupted())</div><div class="line">                    wt.interrupt();</div><div class="line">                try &#123;</div><div class="line">                    beforeExecute(wt, task);</div><div class="line">                    Throwable thrown = null;</div><div class="line">                    try &#123;</div><div class="line">                        task.run();</div><div class="line">                    &#125; catch (RuntimeException x) &#123;</div><div class="line">                        thrown = x; throw x;</div><div class="line">                    &#125; catch (Error x) &#123;</div><div class="line">                        thrown = x; throw x;</div><div class="line">                    &#125; catch (Throwable x) &#123;</div><div class="line">                        thrown = x; throw new Error(x);</div><div class="line">                    &#125; finally &#123;</div><div class="line">                        afterExecute(task, thrown);</div><div class="line">                    &#125;</div><div class="line">                &#125; finally &#123;</div><div class="line">                    task = null;</div><div class="line">                    w.completedTasks++;</div><div class="line">                    w.unlock();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            completedAbruptly = false;</div><div class="line">        &#125; finally &#123;</div><div class="line">            processWorkerExit(w, completedAbruptly);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>while执行任务，通过阻塞在getTask，如果task为null,则释放worker.</p>
+<p>AQS 分析 todo</p>
+<h3 id="3、task任务队列"><a href="#3、task任务队列" class="headerlink" title="3、task任务队列"></a>3、task任务队列</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">private Runnable getTask() &#123;</div><div class="line">        boolean timedOut = false; // Did the last poll() time out?</div><div class="line"></div><div class="line">        for (;;) &#123;</div><div class="line">            int c = ctl.get();</div><div class="line">            int rs = runStateOf(c);</div><div class="line"></div><div class="line">            // 如果线程池关闭或者任务未0，释放worker</div><div class="line">            // 如果线程池任务为关闭，则直接释放</div><div class="line">            if (rs &gt;= SHUTDOWN &amp;&amp; (rs &gt;= STOP || workQueue.isEmpty())) &#123;</div><div class="line">                decrementWorkerCount();</div><div class="line">                return null;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            int wc = workerCountOf(c);</div><div class="line"></div><div class="line">            // Are workers subject to culling?</div><div class="line">            boolean timed = allowCoreThreadTimeOut || wc &gt; corePoolSize;</div><div class="line"></div><div class="line">            if ((wc &gt; maximumPoolSize || (timed &amp;&amp; timedOut))</div><div class="line">                &amp;&amp; (wc &gt; 1 || workQueue.isEmpty())) &#123;</div><div class="line">                if (compareAndDecrementWorkerCount(c))</div><div class="line">                    return null;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            try &#123;</div><div class="line">                Runnable r = timed ?</div><div class="line">                    workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) :</div><div class="line">                    workQueue.take();</div><div class="line">                if (r != null)</div><div class="line">                    return r;</div><div class="line">                timedOut = true;</div><div class="line">            &#125; catch (InterruptedException retry) &#123;</div><div class="line">                timedOut = false;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>如果任务有设置超时时间，通过queue的poll建立超时返回机制，没有的话直接使用take一直阻塞。<br>关于LinkedBlockingQueue，可以参考：<a href="mweblib://15036544826681" target="_blank" rel="external">LinkedBlockingQueue 原理分析</a></p>
 
       
     </div>
@@ -474,7 +475,7 @@
       
         <div class="post-tags">
           
-            <a href="/shuimin.github.io/tags/流控/" rel="tag"># 流控</a>
+            <a href="/shuimin.github.io/tags/线程池/" rel="tag"># 线程池</a>
           
         </div>
       
@@ -487,15 +488,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/shuimin.github.io/集群流量系统思考.html" rel="next" title="集群流控系统思考">
+                <i class="fa fa-chevron-left"></i> 集群流控系统思考
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/shuimin.github.io/2017/08/29/JDK线程池原理/" rel="prev" title="JDK线程池原理">
-                JDK线程池原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -688,7 +689,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、业务诉求"><span class="nav-number">1.</span> <span class="nav-text">一、业务诉求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、架构"><span class="nav-number">2.</span> <span class="nav-text">二、架构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、线程池概要"><span class="nav-number">1.</span> <span class="nav-text">一、线程池概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、设计思路"><span class="nav-number">2.</span> <span class="nav-text">二、设计思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、源码分析"><span class="nav-number">3.</span> <span class="nav-text">三、源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、新建线程池"><span class="nav-number">3.1.</span> <span class="nav-text">1、新建线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1、新建任务"><span class="nav-number">3.2.</span> <span class="nav-text">1、新建任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、新建worker"><span class="nav-number">3.3.</span> <span class="nav-text">2、新建worker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、worker消费任务队列"><span class="nav-number">3.4.</span> <span class="nav-text">3、worker消费任务队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、task任务队列"><span class="nav-number">3.5.</span> <span class="nav-text">3、task任务队列</span></a></li></ol></li></ol></div>
             
 
           </div>
