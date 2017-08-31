@@ -101,12 +101,12 @@
 <meta name="keywords" content="线程池">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JDK线程池原理">
-<meta property="og:url" content="https://powerwang.github.io/shuimin.github.io/JDK线程池原理.html">
+<meta property="og:url" content="https://powerwang.github.io/shuimin.github.io/jdk/JDK线程池原理.html">
 <meta property="og:site_name" content="架构师">
 <meta property="og:description" content="一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池  任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。 其中任务队">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://powerwang.github.io/images/threadPoll.jpg">
-<meta property="og:updated_time" content="2017-08-30T15:29:06.000Z">
+<meta property="og:updated_time" content="2017-08-30T16:08:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JDK线程池原理">
 <meta name="twitter:description" content="一、线程池概要线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。  初始化线程池规定池核心大小和最大线程数,当execute将任务塞到线程池  任务插入流程，如果没有超过核心线程数新建worker,如果超过将任务插入到队列，如果队列满了，检查没有超过最大线程数，没有超过再  new  worker ,如果超过执行处理策略，默认是直接报错。 其中任务队">
@@ -140,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="https://powerwang.github.io/shuimin.github.io/JDK线程池原理.html"/>
+  <link rel="canonical" href="https://powerwang.github.io/shuimin.github.io/jdk/JDK线程池原理.html"/>
 
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://powerwang.github.io/shuimin.github.io/shuimin.github.io/JDK线程池原理.html">
+    <link itemprop="mainEntityOfPage" href="https://powerwang.github.io/shuimin.github.io/shuimin.github.io/jdk/JDK线程池原理.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王水民(Burton)">
@@ -388,8 +388,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/shuimin.github.io/JDK线程池原理.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="https://powerwang.github.io/shuimin.github.io/JDK线程池原理.html" itemprop="commentCount">0</span> comments
+                <a href="/shuimin.github.io/jdk/JDK线程池原理.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="https://powerwang.github.io/shuimin.github.io/jdk/JDK线程池原理.html" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -424,7 +424,7 @@
 <li>其中任务队列是通过BlockingQueue 的take(没有设置超时时间，worker一直阻塞，直到有任务为止)，poll 可以设置等待超时时间，如果时间范围内没有任务就返回null，worker  如果收到null,就直接释放结束。<a id="more"></a>  
 </li>
 </ol>
-<h2 id="二、设计思路"><a href="#二、设计思路" class="headerlink" title="二、设计思路"></a>二、设计思路</h2><p>1、线程池设计初衷是为了解决线程统一管理，将任务和执行体分离，实现可以对执行体的容量规划和生命周期进行统一管理，实现不用泛滥新建线程。<br>2、容量管理：分为执行体（worker）容量和任务队列容量，策略分别是优先满足核心执行体容量&gt;任务队列容量&gt;最大执行体容器&gt;自我保护pocily。<br>3、生产模式：所有执行体(worker)共享任务列表。<br>4、超时协议（timeout）：执行体在某些策略场景下执行超时释放。<br><img src="../images/threadPoll.jpg" alt="线程池"></p>
+<h2 id="二、设计思路"><a href="#二、设计思路" class="headerlink" title="二、设计思路"></a>二、设计思路</h2><p>1、线程池设计初衷是为了解决线程统一管理，将任务和执行体分离，实现可以对执行体的容量规划和生命周期进行统一管理，实现不用泛滥新建线程。<br>2、容量管理：分为执行体（worker）容量和任务队列容量，策略分别是优先满足核心执行体容量&gt;任务队列容量&gt;最大执行体容器&gt;自我保护pocily。<br>3、生产模式：所有执行体(worker)共享任务列表。<br>4、超时协议（timeout）：执行体在某些策略场景下执行超时释放。<br><img src="../../images/threadPoll.jpg" alt="线程池"></p>
 <h2 id="三、源码分析"><a href="#三、源码分析" class="headerlink" title="三、源码分析"></a>三、源码分析</h2><h3 id="1、新建线程池"><a href="#1、新建线程池" class="headerlink" title="1、新建线程池"></a>1、新建线程池</h3><p>新建一个线程池，初始化容量、超时机制、异常自我保护策略做最后兜底</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">                              int maximumPoolSize,</div><div class="line">                              long keepAliveTime,</div><div class="line">                              TimeUnit unit,</div><div class="line">                              BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                              ThreadFactory threadFactory,</div><div class="line">                              RejectedExecutionHandler handler) &#123;</div><div class="line">                              </div><div class="line">        if (corePoolSize &lt; 0 ||</div><div class="line">            maximumPoolSize &lt;= 0 ||</div><div class="line">            maximumPoolSize &lt; corePoolSize ||</div><div class="line">            keepAliveTime &lt; 0)</div><div class="line">            throw new IllegalArgumentException();</div><div class="line">        if (workQueue == null || threadFactory == null || handler == null)</div><div class="line">            throw new NullPointerException();</div><div class="line">        this.corePoolSize = corePoolSize; // 核心执行体数量</div><div class="line">        this.maximumPoolSize = maximumPoolSize; // 最大执行体数量，只有当任务容量满足不了，才进行扩容</div><div class="line">        this.workQueue = workQueue; // 任务队列</div><div class="line">        this.keepAliveTime = unit.toNanos(keepAliveTime); // 超时时间</div><div class="line">        this.threadFactory = threadFactory; //线程工厂</div><div class="line">        this.handler = handler; // 自我保护策略</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>关于 ThreadFactory 工作原理，可以参考：todo</p>
@@ -863,8 +863,8 @@ var jiathis_config={
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://powerwang.github.io/shuimin.github.io/JDK线程池原理.html';
-          this.page.identifier = 'JDK线程池原理.html';
+          this.page.url = 'https://powerwang.github.io/shuimin.github.io/jdk/JDK线程池原理.html';
+          this.page.identifier = 'jdk/JDK线程池原理.html';
           this.page.title = 'JDK线程池原理';
         };
         var d = document, s = d.createElement('script');
