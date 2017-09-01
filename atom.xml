@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://www.springwork.cn/"/>
+  <link href="http://springwork.cn/"/>
   <updated>2017-09-01T14:58:00.000Z</updated>
-  <id>http://www.springwork.cn/</id>
+  <id>http://springwork.cn/</id>
   
   <author>
     <name>王水民(Burton)</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>JDK线程池原理</title>
-    <link href="http://www.springwork.cn/jdk/JDK%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.html"/>
-    <id>http://www.springwork.cn/jdk/JDK线程池原理.html</id>
+    <link href="http://springwork.cn/jdk/JDK%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.html"/>
+    <id>http://springwork.cn/jdk/JDK线程池原理.html</id>
     <published>2017-08-29T13:52:12.000Z</published>
     <updated>2017-09-01T14:58:00.000Z</updated>
     
@@ -56,19 +56,19 @@
     
     </summary>
     
-      <category term="JDK" scheme="http://www.springwork.cn/categories/JDK/"/>
+      <category term="JDK" scheme="http://springwork.cn/categories/JDK/"/>
     
-      <category term="线程池" scheme="http://www.springwork.cn/categories/JDK/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <category term="线程池" scheme="http://springwork.cn/categories/JDK/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
     
-      <category term="线程池" scheme="http://www.springwork.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <category term="线程池" scheme="http://springwork.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
   </entry>
   
   <entry>
     <title>集群流控系统思考</title>
-    <link href="http://www.springwork.cn/%E9%9B%86%E7%BE%A4%E6%B5%81%E9%87%8F%E7%B3%BB%E7%BB%9F%E6%80%9D%E8%80%83.html"/>
-    <id>http://www.springwork.cn/集群流量系统思考.html</id>
+    <link href="http://springwork.cn/%E9%9B%86%E7%BE%A4%E6%B5%81%E9%87%8F%E7%B3%BB%E7%BB%9F%E6%80%9D%E8%80%83.html"/>
+    <id>http://springwork.cn/集群流量系统思考.html</id>
     <published>2017-08-29T13:33:37.000Z</published>
     <updated>2017-09-01T14:57:57.000Z</updated>
     
@@ -101,12 +101,12 @@
     
     </summary>
     
-      <category term="架构" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84/"/>
+      <category term="架构" scheme="http://springwork.cn/categories/%E6%9E%B6%E6%9E%84/"/>
     
-      <category term="流控" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84/%E6%B5%81%E6%8E%A7/"/>
+      <category term="流控" scheme="http://springwork.cn/categories/%E6%9E%B6%E6%9E%84/%E6%B5%81%E6%8E%A7/"/>
     
     
-      <category term="流控" scheme="http://www.springwork.cn/tags/%E6%B5%81%E6%8E%A7/"/>
+      <category term="流控" scheme="http://springwork.cn/tags/%E6%B5%81%E6%8E%A7/"/>
     
   </entry>
   
