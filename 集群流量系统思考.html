@@ -101,16 +101,16 @@
 <meta name="keywords" content="流控">
 <meta property="og:type" content="article">
 <meta property="og:title" content="集群流控系统思考">
-<meta property="og:url" content="www.springwork.cn/集群流量系统思考.html">
+<meta property="og:url" content="http://www.springwork.cn/集群流量系统思考.html">
 <meta property="og:site_name" content="架构师">
 <meta property="og:description" content="一、业务诉求 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg">
-<meta property="og:updated_time" content="2017-08-31T02:33:10.000Z">
+<meta property="og:image" content="http://www.springwork.cn/images/架构/流控.jpg">
+<meta property="og:updated_time" content="2017-09-01T14:57:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="集群流控系统思考">
 <meta name="twitter:description" content="一、业务诉求 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景">
-<meta name="twitter:image" content="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg">
+<meta name="twitter:image" content="http://www.springwork.cn/images/架构/流控.jpg">
 
 
 
@@ -140,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="www.springwork.cn/集群流量系统思考.html"/>
+  <link rel="canonical" href="http://www.springwork.cn/集群流量系统思考.html"/>
 
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="www.springwork.cn/集群流量系统思考.html">
+    <link itemprop="mainEntityOfPage" href="http://www.springwork.cn/集群流量系统思考.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王水民(Burton)">
@@ -389,7 +389,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/集群流量系统思考.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="www.springwork.cn/集群流量系统思考.html" itemprop="commentCount">0</span> comments
+                  <span class="post-comments-count fb-comments-count" data-href="http://www.springwork.cn/集群流量系统思考.html" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -423,7 +423,7 @@
 <li>缓存qps会非常大，缓存可能会被击穿。</li>
 <li>具有读又有写，业务请求强耦合流控系统缓存，将会形成单点问题。</li>
 </ul>
-<p><strong>大并发架构：</strong><br>将系统拆分为：流量计数、流控策略、策略同步<br><img src="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg" alt=""></p>
+<p><strong>大并发架构：</strong><br>将系统拆分为：流量计数、流控策略、策略同步<br><img src="../images/架构/流控.jpg" alt=""></p>
 <ul>
 <li><p>流程计数：<br>流量进来，先通过消息异步化，到流量   计数模块，流量计数模块按url+分钟+业务为key,缓存到本地，然后定时刷新到redis。<br>好处：通过消息缓冲避免出现redis请求毛刺，再通过本地缓存避免每次消息消费对redis资源依赖，减少消息堆积风险和redis数据更新压力。</p>
 <blockquote>
@@ -862,7 +862,7 @@ var jiathis_config={
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'www.springwork.cn/集群流量系统思考.html';
+          this.page.url = 'http://www.springwork.cn/集群流量系统思考.html';
           this.page.identifier = '集群流量系统思考.html';
           this.page.title = '集群流控系统思考';
         };

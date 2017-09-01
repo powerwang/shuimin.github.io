@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="www.springwork.cn/"/>
-  <updated>2017-08-31T02:37:33.000Z</updated>
-  <id>www.springwork.cn/</id>
+  <link href="http://www.springwork.cn/"/>
+  <updated>2017-09-01T14:58:00.000Z</updated>
+  <id>http://www.springwork.cn/</id>
   
   <author>
     <name>王水民(Burton)</name>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>JDK线程池原理</title>
-    <link href="www.springwork.cn/jdk/JDK%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.html"/>
-    <id>www.springwork.cn/jdk/JDK线程池原理.html</id>
+    <link href="http://www.springwork.cn/jdk/JDK%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.html"/>
+    <id>http://www.springwork.cn/jdk/JDK线程池原理.html</id>
     <published>2017-08-29T13:52:12.000Z</published>
-    <updated>2017-08-31T02:37:33.000Z</updated>
+    <updated>2017-09-01T14:58:00.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="一、线程池概要"><a href="#一、线程池概要" class="headerlink" title="一、线程池概要"></a>一、线程池概要</h2><p>线程池就是一个用来管理线程和复用线程集中工厂，它可以降低系统资源开销、快速启动任务和线程上限控制。</p>
 <ol>
@@ -29,7 +29,7 @@
 <li>其中任务队列是通过BlockingQueue 的take(没有设置超时时间，worker一直阻塞，直到有任务为止)，poll 可以设置等待超时时间，如果时间范围内没有任务就返回null，worker  如果收到null,就直接释放结束。<a id="more"></a>  
 </li>
 </ol>
-<h2 id="二、设计思路"><a href="#二、设计思路" class="headerlink" title="二、设计思路"></a>二、设计思路</h2><p>1、线程池设计初衷是为了解决线程统一管理，将任务和执行体分离，实现可以对执行体的容量规划和生命周期进行统一管理，实现不用泛滥新建线程。<br>2、容量管理：分为执行体（worker）容量和任务队列容量，策略分别是优先满足核心执行体容量&gt;任务队列容量&gt;最大执行体容器&gt;自我保护pocily。<br>3、生产模式：所有执行体(worker)共享任务列表。<br>4、超时协议（timeout）：执行体在某些策略场景下执行超时释放。<br><img src="https://powerwang.github.io/shuimin.github.io/images/threadPoll.jpg" alt="线程池"></p>
+<h2 id="二、设计思路"><a href="#二、设计思路" class="headerlink" title="二、设计思路"></a>二、设计思路</h2><p>1、线程池设计初衷是为了解决线程统一管理，将任务和执行体分离，实现可以对执行体的容量规划和生命周期进行统一管理，实现不用泛滥新建线程。<br>2、容量管理：分为执行体（worker）容量和任务队列容量，策略分别是优先满足核心执行体容量&gt;任务队列容量&gt;最大执行体容器&gt;自我保护pocily。<br>3、生产模式：所有执行体(worker)共享任务列表。<br>4、超时协议（timeout）：执行体在某些策略场景下执行超时释放。<br><img src="../../images/threadPoll.jpg" alt="线程池"></p>
 <h2 id="三、源码分析"><a href="#三、源码分析" class="headerlink" title="三、源码分析"></a>三、源码分析</h2><h3 id="1、新建线程池"><a href="#1、新建线程池" class="headerlink" title="1、新建线程池"></a>1、新建线程池</h3><p>新建一个线程池，初始化容量、超时机制、异常自我保护策略做最后兜底</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public ThreadPoolExecutor(int corePoolSize,</div><div class="line">                              int maximumPoolSize,</div><div class="line">                              long keepAliveTime,</div><div class="line">                              TimeUnit unit,</div><div class="line">                              BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                              ThreadFactory threadFactory,</div><div class="line">                              RejectedExecutionHandler handler) &#123;</div><div class="line">                              </div><div class="line">        if (corePoolSize &lt; 0 ||</div><div class="line">            maximumPoolSize &lt;= 0 ||</div><div class="line">            maximumPoolSize &lt; corePoolSize ||</div><div class="line">            keepAliveTime &lt; 0)</div><div class="line">            throw new IllegalArgumentException();</div><div class="line">        if (workQueue == null || threadFactory == null || handler == null)</div><div class="line">            throw new NullPointerException();</div><div class="line">        this.corePoolSize = corePoolSize; // 核心执行体数量</div><div class="line">        this.maximumPoolSize = maximumPoolSize; // 最大执行体数量，只有当任务容量满足不了，才进行扩容</div><div class="line">        this.workQueue = workQueue; // 任务队列</div><div class="line">        this.keepAliveTime = unit.toNanos(keepAliveTime); // 超时时间</div><div class="line">        this.threadFactory = threadFactory; //线程工厂</div><div class="line">        this.handler = handler; // 自我保护策略</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>关于 ThreadFactory 工作原理，可以参考：todo</p>
@@ -56,21 +56,21 @@
     
     </summary>
     
-      <category term="JDK" scheme="www.springwork.cn/categories/JDK/"/>
+      <category term="JDK" scheme="http://www.springwork.cn/categories/JDK/"/>
     
-      <category term="线程池" scheme="www.springwork.cn/categories/JDK/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <category term="线程池" scheme="http://www.springwork.cn/categories/JDK/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
     
-      <category term="线程池" scheme="www.springwork.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <category term="线程池" scheme="http://www.springwork.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
   </entry>
   
   <entry>
     <title>集群流控系统思考</title>
-    <link href="www.springwork.cn/%E9%9B%86%E7%BE%A4%E6%B5%81%E9%87%8F%E7%B3%BB%E7%BB%9F%E6%80%9D%E8%80%83.html"/>
-    <id>www.springwork.cn/集群流量系统思考.html</id>
+    <link href="http://www.springwork.cn/%E9%9B%86%E7%BE%A4%E6%B5%81%E9%87%8F%E7%B3%BB%E7%BB%9F%E6%80%9D%E8%80%83.html"/>
+    <id>http://www.springwork.cn/集群流量系统思考.html</id>
     <published>2017-08-29T13:33:37.000Z</published>
-    <updated>2017-08-31T02:33:10.000Z</updated>
+    <updated>2017-09-01T14:57:57.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="一、业务诉求"><a href="#一、业务诉求" class="headerlink" title="一、业务诉求"></a>一、业务诉求</h3><p> 实现流量统计，当流量达到某一个阀值点，进行阀值处理策略，可以应用于反爬虫、阶段热点等业务场景<br> <a id="more"></a></p>
 <h3 id="二、架构"><a href="#二、架构" class="headerlink" title="二、架构"></a>二、架构</h3><p><strong>粗暴架构：</strong><br>将url+时间点为key,放到缓存中，每次请求过来，去check一下有没有达到阀值点。<br>风险：</p>
@@ -78,7 +78,7 @@
 <li>缓存qps会非常大，缓存可能会被击穿。</li>
 <li>具有读又有写，业务请求强耦合流控系统缓存，将会形成单点问题。</li>
 </ul>
-<p><strong>大并发架构：</strong><br>将系统拆分为：流量计数、流控策略、策略同步<br><img src="https://powerwang.github.io/shuimin.github.io/images/架构/流控.jpg" alt=""></p>
+<p><strong>大并发架构：</strong><br>将系统拆分为：流量计数、流控策略、策略同步<br><img src="../images/架构/流控.jpg" alt=""></p>
 <ul>
 <li><p>流程计数：<br>流量进来，先通过消息异步化，到流量   计数模块，流量计数模块按url+分钟+业务为key,缓存到本地，然后定时刷新到redis。<br>好处：通过消息缓冲避免出现redis请求毛刺，再通过本地缓存避免每次消息消费对redis资源依赖，减少消息堆积风险和redis数据更新压力。</p>
 <blockquote>
@@ -101,12 +101,12 @@
     
     </summary>
     
-      <category term="架构" scheme="www.springwork.cn/categories/%E6%9E%B6%E6%9E%84/"/>
+      <category term="架构" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84/"/>
     
-      <category term="流控" scheme="www.springwork.cn/categories/%E6%9E%B6%E6%9E%84/%E6%B5%81%E6%8E%A7/"/>
+      <category term="流控" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84/%E6%B5%81%E6%8E%A7/"/>
     
     
-      <category term="流控" scheme="www.springwork.cn/tags/%E6%B5%81%E6%8E%A7/"/>
+      <category term="流控" scheme="http://www.springwork.cn/tags/%E6%B5%81%E6%8E%A7/"/>
     
   </entry>
   
