@@ -8,7 +8,7 @@
         <category>架构师晋级</category>
       </categories>
       <tags>
-        <tag>java学习脑图</tag>
+        <tag>技术好文</tag>
       </tags>
   </entry>
   <entry>
@@ -17,9 +17,10 @@
     <content type="text"><![CDATA[工程化专题（团队大于3个人之后，你需要去考虑团队合作，科学管理） 源码分析专题（好的程序员，一行代码一个设计就能看出来,源码分析带你品味代码，感受架构） 高性能及分布式专题（跟上技术节奏，扩宽技术视野,程序员要往上提升，要有自己的技术工具箱和技术认知。 技术架构专题（真实案例分享，带你领略大型项目风采） 性能调优（追求高效、科学调优，不靠碰运气）]]></content>
       <categories>
         <category>架构师晋级</category>
-        <category>[object Object]</category>
-        <category>java学习脑图</category>
       </categories>
+      <tags>
+        <tag>java学习脑图</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[JDK线程池原理]]></title>
