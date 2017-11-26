@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[技术好文]]></title>
     <url>%2F%E5%A5%BD%E6%96%87%E6%94%B6%E8%97%8F%E5%88%97%E8%A1%A8.html</url>
-    <content type="text"><![CDATA[#技术好文 一、流控 Token bucket 基于分布式环境下限流系统的设计 基于Redis的限流系统的设计 聊聊高并发系统之限流特技 API 调用次数限制实现 基于Kafka/Storm的实时流量控制系统 二、网关设计 谈谈基于 OpenResty 的接口网关设计]]></content>
+    <content type="text"><![CDATA[技术好文一、流控 Token bucket 基于分布式环境下限流系统的设计 基于Redis的限流系统的设计 聊聊高并发系统之限流特技 API 调用次数限制实现 基于Kafka/Storm的实时流量控制系统 二、网关设计 谈谈基于 OpenResty 的接口网关设计]]></content>
       <categories>
         <category>架构师晋级</category>
       </categories>
