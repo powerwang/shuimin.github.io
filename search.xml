@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[java学习脑图(转)]]></title>
-    <url>%2FJava%E9%AB%98%E7%BA%A7%E6%9E%B6%E6%9E%84%E5%B8%88%E7%B3%BB%E7%BB%9F%E8%BF%9B%E9%98%B6%E7%BA%BF%E8%B7%AF.html</url>
-    <content type="text"><![CDATA[工程化专题（团队大于3个人之后，你需要去考虑团队合作，科学管理） 源码分析专题（好的程序员，一行代码一个设计就能看出来,源码分析带你品味代码，感受架构） 高性能及分布式专题（跟上技术节奏，扩宽技术视野,程序员要往上提升，要有自己的技术工具箱和技术认知。 技术架构专题（真实案例分享，带你领略大型项目风采） 性能调优（追求高效、科学调优，不靠碰运气）]]></content>
+    <title><![CDATA[技术好文]]></title>
+    <url>%2F%E5%A5%BD%E6%96%87%E6%94%B6%E8%97%8F%E5%88%97%E8%A1%A8.html</url>
+    <content type="text"><![CDATA[#技术好文 一、流控 Token bucket 基于分布式环境下限流系统的设计 基于Redis的限流系统的设计 聊聊高并发系统之限流特技 API 调用次数限制实现 基于Kafka/Storm的实时流量控制系统 二、网关设计 谈谈基于 OpenResty 的接口网关设计]]></content>
       <categories>
-        <category>java学习脑图</category>
+        <category>架构师晋级</category>
       </categories>
       <tags>
         <tag>java学习脑图</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[java学习脑图(转)]]></title>
+    <url>%2FJava%E9%AB%98%E7%BA%A7%E6%9E%B6%E6%9E%84%E5%B8%88%E7%B3%BB%E7%BB%9F%E8%BF%9B%E9%98%B6%E7%BA%BF%E8%B7%AF.html</url>
+    <content type="text"><![CDATA[工程化专题（团队大于3个人之后，你需要去考虑团队合作，科学管理） 源码分析专题（好的程序员，一行代码一个设计就能看出来,源码分析带你品味代码，感受架构） 高性能及分布式专题（跟上技术节奏，扩宽技术视野,程序员要往上提升，要有自己的技术工具箱和技术认知。 技术架构专题（真实案例分享，带你领略大型项目风采） 性能调优（追求高效、科学调优，不靠碰运气）]]></content>
+      <categories>
+        <category>架构师晋级</category>
+        <category>[object Object]</category>
+        <category>java学习脑图</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[JDK线程池原理]]></title>

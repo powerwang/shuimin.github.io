@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.springwork.cn/"/>
-  <updated>2017-11-26T12:53:40.000Z</updated>
+  <updated>2017-11-26T13:48:39.000Z</updated>
   <id>http://www.springwork.cn/</id>
   
   <author>
@@ -16,11 +16,47 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>技术好文</title>
+    <link href="http://www.springwork.cn/%E5%A5%BD%E6%96%87%E6%94%B6%E8%97%8F%E5%88%97%E8%A1%A8.html"/>
+    <id>http://www.springwork.cn/好文收藏列表.html</id>
+    <published>2017-11-26T13:25:06.000Z</published>
+    <updated>2017-11-26T13:48:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#技术好文 </p>
+<h2 id="一、流控"><a href="#一、流控" class="headerlink" title="一、流控"></a>一、流控</h2><ol>
+<li><a href="https://en.wikipedia.org/wiki/Token_bucket" target="_blank" rel="external">Token bucket</a></li>
+<li><a href="http://www.54tianzhisheng.cn/2017/11/18/flow-control/" target="_blank" rel="external">基于分布式环境下限流系统的设计</a></li>
+<li><a href="https://www.zybuluo.com/kay2/note/949160" target="_blank" rel="external">基于Redis的限流系统的设计</a></li>
+<li><a href="http://jinnianshilongnian.iteye.com/blog/2305117" target="_blank" rel="external">聊聊高并发系统之限流特技</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/20872901" target="_blank" rel="external">API 调用次数限制实现</a></li>
+<li><a href="https://mp.weixin.qq.com/s/BcF5_nNPFbWLDvbuAWr6kA" target="_blank" rel="external">基于Kafka/Storm的实时流量控制系统</a></li>
+</ol>
+<h2 id="二、网关设计"><a href="#二、网关设计" class="headerlink" title="二、网关设计"></a>二、网关设计</h2><ol>
+<li><a href="https://mp.weixin.qq.com/s/57sno2kfSrVWVMGFXyASjQ" target="_blank" rel="external">谈谈基于 OpenResty 的接口网关设计</a></li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#技术好文 &lt;/p&gt;
+&lt;h2 id=&quot;一、流控&quot;&gt;&lt;a href=&quot;#一、流控&quot; class=&quot;headerlink&quot; title=&quot;一、流控&quot;&gt;&lt;/a&gt;一、流控&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Tok
+    
+    </summary>
+    
+      <category term="架构师晋级" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84%E5%B8%88%E6%99%8B%E7%BA%A7/"/>
+    
+    
+      <category term="java学习脑图" scheme="http://www.springwork.cn/tags/java%E5%AD%A6%E4%B9%A0%E8%84%91%E5%9B%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java学习脑图(转)</title>
     <link href="http://www.springwork.cn/Java%E9%AB%98%E7%BA%A7%E6%9E%B6%E6%9E%84%E5%B8%88%E7%B3%BB%E7%BB%9F%E8%BF%9B%E9%98%B6%E7%BA%BF%E8%B7%AF.html"/>
     <id>http://www.springwork.cn/Java高级架构师系统进阶线路.html</id>
     <published>2017-11-26T12:10:03.000Z</published>
-    <updated>2017-11-26T12:53:40.000Z</updated>
+    <updated>2017-11-26T13:48:36.000Z</updated>
     
     <content type="html"><![CDATA[<ol>
 <li>工程化专题（团队大于3个人之后，你需要去考虑团队合作，科学管理）<br><img src="../images/java_learm/15116988518629.jpg" alt="">  <a id="more"></a></li>
@@ -40,10 +76,12 @@
     
     </summary>
     
-      <category term="java学习脑图" scheme="http://www.springwork.cn/categories/java%E5%AD%A6%E4%B9%A0%E8%84%91%E5%9B%BE/"/>
+      <category term="架构师晋级" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84%E5%B8%88%E6%99%8B%E7%BA%A7/"/>
     
+      <category term="[object Object]" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84%E5%B8%88%E6%99%8B%E7%BA%A7/object-Object/"/>
     
-      <category term="java学习脑图" scheme="http://www.springwork.cn/tags/java%E5%AD%A6%E4%B9%A0%E8%84%91%E5%9B%BE/"/>
+      <category term="java学习脑图" scheme="http://www.springwork.cn/categories/%E6%9E%B6%E6%9E%84%E5%B8%88%E6%99%8B%E7%BA%A7/object-Object/java%E5%AD%A6%E4%B9%A0%E8%84%91%E5%9B%BE/"/>
+    
     
   </entry>
   
